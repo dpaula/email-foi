@@ -17,5 +17,9 @@ public interface IEmailController {
 
     @Operation(summary = "Enviar Emails", description = "Post para um e-mail")
     @PostMapping
-    ResponseEntity<EmailDTO> post(@NotNull @Valid @RequestBody final EmailDTO emailInput);
+    ResponseEntity<EmailDTO> postEmailSimples(@NotNull @Valid @RequestBody final EmailDTO emailInput);
+
+    @Operation(summary = "Enviar Emails Anexo", description = "Post para um e-mail com anexo")
+    @PostMapping
+    ResponseEntity<EmailDTO> postEmailComAnexo(@NotNull @Valid @RequestBody final EmailDTO emailInput);
 }

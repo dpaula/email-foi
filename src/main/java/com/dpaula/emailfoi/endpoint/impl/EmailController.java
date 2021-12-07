@@ -16,9 +16,15 @@ public class EmailController implements IEmailController {
 
     private final EmailService service;
 
+    @Override
+    public ResponseEntity<EmailDTO> postEmailSimples(final EmailDTO emailInput) {
+        final var email = service.enviar(emailInput);
+
+        return ResponseEntity.ok(email);
+    }
 
     @Override
-    public ResponseEntity<EmailDTO> post(final EmailDTO emailInput) {
+    public ResponseEntity<EmailDTO> postEmailComAnexo(final EmailDTO emailInput) {
         final var email = service.enviar(emailInput);
 
         return ResponseEntity.ok(email);
