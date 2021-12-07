@@ -1,0 +1,58 @@
+server:
+  port: 2560
+  servlet:
+    context-path: /
+  undertow:
+    accesslog:
+      prefix: "[EMAIL-FOI]"
+
+spring:
+  main:
+    banner-mode: 'off'
+  output:
+    ansi:
+      enabled: 'always'
+  application:
+    name: 'email-foi'
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: fernando.dpaula@gmail.com
+    password: ihyvzszlobmjaphd
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+logging:
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{1}: %msg%n'
+  level:
+    root: INFO
+    com.dpaula: DEBUG
+
+#ACTUATOR
+management:
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: false
+      prometheus:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+info:
+  app:
+    name: '@project.name@'
+    description: '@project.description@'
+    version: '@project.version@'
+    encoding: '@project.build.sourceEncoding@'
+    java:
+      version: '@java.version@'
