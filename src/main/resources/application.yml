@@ -27,6 +27,32 @@ spring:
           starttls:
             enable: true
 
+  cloud:
+    azure:
+      servicebus:
+        connection-string: Endpoint=sb://fplima.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=nlV4hI8vwnEvaQwam0yTBIWZt4iVUC5Cv99wUfxzEVU=
+      subscription-id: sb-compra-email
+    stream:
+      bindings:
+        consume-in-0:
+          destination: compra-topico
+          group: sb-compra-email
+        supply-out-0:
+          destination: compra-topico
+          producer:
+            requiredGroups: sb-compra-email
+        servicebus:
+          topic:
+            bindings:
+              consume-in-0:
+                consumer:
+                  checkpoint-mode: MANUAL
+        function:
+          definition: consume;supply;
+        poller:
+          fixed-delay: 1000
+          initial-delay: 0
+
 logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{1}: %msg%n'
